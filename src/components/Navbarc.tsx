@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { HoveredLink, Menu, MenuItem, ProductItem } from "@/components/ui/Navbar";
+import { HoveredLink, Menu, MenuItem, ProductItem } from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 import Toggler from "@/components/Toggler"
 export default function NavbarDemo() {
@@ -15,7 +15,7 @@ function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   return (
     <div
-      className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
+      className={cn("fixed top-10 inset-x-0 max-w-xl mx-auto z-50", className)}
     >
       <Menu setActive={setActive}>
         <MenuItem setActive={setActive} active={active} item="Services">
@@ -56,13 +56,13 @@ function Navbar({ className }: { className?: string }) {
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Pricing">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/hobby">Hobby</HoveredLink>
-            <HoveredLink href="/individual">Individual</HoveredLink>
+            <HoveredLink href="/signup">Looking for Bus?</HoveredLink>
+            <HoveredLink href="/signupbus">Own A Bus?</HoveredLink>
             <HoveredLink href="/team">Team</HoveredLink>
             <HoveredLink href="/enterprise">Enterprise</HoveredLink>
           </div>
         </MenuItem>
-        <Toggler/>
+        
       </Menu>
     </div>
   );

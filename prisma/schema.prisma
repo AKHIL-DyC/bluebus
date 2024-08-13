@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,10 +6,66 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model BlueBusUser{
-  id Int @id @default(autoincrement())
-  name String 
-  password String
-  gmail String @unique
-  phone String @unique
+
+model BlueBusUser {
+  id           Int          @id @default(autoincrement())
+  name         String
+  password     String
+  gmail        String       @unique
+  phone        String       @unique
+  role         String       @default("user")
+  reservations Resevation[] 
+}
+
+model BlueBusOwner {
+  bid          Int          @id @default(autoincrement())
+  name         String
+  email        String       @unique
+  password     String
+  bname        String
+  regno        String       @unique
+  phone        String       @unique
+  type         String
+  role         String       @default("busowner")
+  buses        Routebus[]
+}
+
+model BlueBusRoute {
+  rid          Int          @id @default(autoincrement())
+  from         String
+  to           String
+  distance     String
+  amount       Int
+  buses        Routebus[]
+}
+
+model Routebus {
+  id           Int          @id @default(autoincrement())
+  bid          Int
+  rid          Int
+  date         DateTime
+  s1           Boolean      @default(false)
+  s2           Boolean      @default(false)
+  s3           Boolean      @default(false)
+  s4           Boolean      @default(false)
+  arrivaltime  DateTime
+  deptrtime    DateTime
+  remaining    Int          @default(40)
+
+  owner        BlueBusOwner @relation(fields: [bid], references: [bid], onDelete: Cascade)
+  route        BlueBusRoute @relation(fields: [rid], references: [rid], onDelete: Cascade)
+  reservations Resevation[] 
+
+  @@unique([bid, rid, date])  // Compound unique constraint
+}
+
+model Resevation {
+  id           Int          @id @default(autoincrement())
+  uid          Int
+  bid          Int
+  rid          Int
+  sid          Int
+  date         DateTime
+  user         BlueBusUser  @relation(fields: [uid], references: [id], onDelete: Cascade)
+  routebus     Routebus     @relation(fields: [bid, rid, date], references: [bid, rid, date], onDelete: Cascade)
 }
