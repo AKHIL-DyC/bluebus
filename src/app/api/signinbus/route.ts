@@ -16,12 +16,13 @@ export async function POST(req:NextRequest){
                 type:body.type  
             }
         })
+        return NextResponse.json({msg:"bus created successfully"})
     }
     catch(e){
         return NextResponse.json({msg:"error occured"+e})
     }
-    finally{
-        return NextResponse.json({msg:"bus created successfully"})
-    }
+    
+    
+    
     
 }

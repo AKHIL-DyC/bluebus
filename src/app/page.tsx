@@ -14,8 +14,7 @@ import { Next_AUTH_CONFIG } from "./lib/auth";
 import Sidebar from "@/components/Sidebar";
 
 export default async function Home() {
-  
-      const session =await getServerSession(Next_AUTH_CONFIG);
+      //const session =await getServerSession(Next_AUTH_CONFIG);
   
   
   return (
@@ -29,10 +28,10 @@ export default async function Home() {
      <EndLocation/>
      <DatePicker/>
      <DrawerDemo/>
-    <div>{JSON.stringify(session?.user)}</div>
+   
   
     </main>
-    {console.log(session)}
+
     </>
   );
 }

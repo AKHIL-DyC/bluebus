@@ -33,7 +33,7 @@ export default function SignupFormDemo() {
     const router= useRouter();
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if(!name||!email||!password||!password){
+    if(!name||!email||!password||!password||!bname||!nplate||!phno){
         alert('Some Fields are empty')
         return   
     }
