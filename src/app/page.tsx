@@ -12,9 +12,10 @@ import { getServerSession} from "next-auth";
 import { json } from "stream/consumers";
 import { Next_AUTH_CONFIG } from "./lib/auth";
 import Sidebar from "@/components/Sidebar";
+import { cookies } from "next/headers";
 
 export default async function Home() {
-      //const session =await getServerSession(Next_AUTH_CONFIG);
+      const session =await getServerSession(Next_AUTH_CONFIG);
   
   
   return (
@@ -28,7 +29,7 @@ export default async function Home() {
      <EndLocation/>
      <DatePicker/>
      <DrawerDemo/>
-   
+
   
     </main>
 
