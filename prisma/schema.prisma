@@ -43,13 +43,49 @@ model Routebus {
   id           Int          @id @default(autoincrement())
   bid          Int
   rid          Int
-  date         DateTime
+  date         String
   s1           Boolean      @default(false)
   s2           Boolean      @default(false)
   s3           Boolean      @default(false)
   s4           Boolean      @default(false)
-  arrivaltime  DateTime
-  deptrtime    DateTime
+  s5           Boolean      @default(false)
+  s6           Boolean      @default(false)
+  s7           Boolean      @default(false)
+  s8           Boolean      @default(false)
+  s9           Boolean      @default(false)
+  s10          Boolean      @default(false)
+  s11          Boolean      @default(false)
+  s12          Boolean      @default(false)
+  s13           Boolean      @default(false)
+  s14           Boolean      @default(false)
+  s15           Boolean      @default(false)
+  s16          Boolean      @default(false) 
+  s17           Boolean      @default(false)
+  s18           Boolean      @default(false)
+  s19          Boolean      @default(false)
+  s20           Boolean      @default(false)
+  s21         Boolean      @default(false)
+ s22           Boolean      @default(false)
+ s23           Boolean      @default(false)
+ s24           Boolean      @default(false)
+ s25           Boolean      @default(false)
+ s26           Boolean      @default(false)
+ s27           Boolean      @default(false)
+ s28           Boolean      @default(false)
+ s29           Boolean      @default(false)
+ s30          Boolean      @default(false)
+ s31          Boolean      @default(false)
+ s32          Boolean      @default(false)
+ s33           Boolean      @default(false)
+ s34           Boolean      @default(false)
+ s35           Boolean      @default(false)
+ s36          Boolean      @default(false) 
+ s37           Boolean      @default(false)
+ s38           Boolean      @default(false)
+ s39          Boolean      @default(false)
+ s40           Boolean      @default(false)
+  arrivaltime  String
+  deptrtime    String
   remaining    Int          @default(40)
 
   owner        BlueBusOwner @relation(fields: [bid], references: [bid], onDelete: Cascade)
@@ -65,7 +101,7 @@ model Resevation {
   bid          Int
   rid          Int
   sid          Int
-  date         DateTime
+  date         String
   user         BlueBusUser  @relation(fields: [uid], references: [id], onDelete: Cascade)
   routebus     Routebus     @relation(fields: [bid, rid, date], references: [bid, rid, date], onDelete: Cascade)
 }

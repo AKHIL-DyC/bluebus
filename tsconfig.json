@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/auth/[...nextauth]/route.js", "src/components/Sidebar.jsx", "src/middleware.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/auth/[...nextauth]/route.js", "src/components/Sidebar.jsx", "src/middleware.js", "src/components/Datepicker.jsx", "src/components/EndLocation.jsx", "src/app/api/addbus/route.js"],
   "exclude": ["node_modules"]
 }

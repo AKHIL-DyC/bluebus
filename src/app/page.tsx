@@ -16,7 +16,7 @@ import { cookies } from "next/headers";
 
 export default async function Home() {
       const session =await getServerSession(Next_AUTH_CONFIG);
-  
+      
   
   return (
     <>

@@ -41,7 +41,7 @@ const frameworks = [
   },
 ]
 
-export default function ComboboxDemo() {
+export default function ComboboxDemo({start,setstart}) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
 
@@ -54,8 +54,8 @@ export default function ComboboxDemo() {
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
+          {start
+            ? frameworks.find((framework) => framework.value === start)?.label
             : "Select Starting..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -71,14 +71,14 @@ export default function ComboboxDemo() {
                   key={framework.value}
                   value={framework.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    setstart(currentValue === start ? "" : currentValue)
                     setOpen(false)
                   }}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      start === framework.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                   {framework.label}
@@ -89,5 +89,7 @@ export default function ComboboxDemo() {
         </Command>
       </PopoverContent>
     </Popover>
+
+    
   )
 }
