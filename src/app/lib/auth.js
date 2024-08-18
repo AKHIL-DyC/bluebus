@@ -30,6 +30,7 @@ export const Next_AUTH_CONFIG = {
         if (bowner) {
           console.log("Returning bus owner:", bowner);
           cookies().set('role', bowner.role)
+          cookies().set('bid',bowner.bid)
           return {
             id: bowner.bid,
             email: bowner.email,
