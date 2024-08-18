@@ -38,7 +38,7 @@ export default function SignupFormDemo() {
     }
     console.log("Form submitted");
     console.log(name,lname,email,phno);
-    const response=await axios.post("http://localhost:3000/api/signin",{name:name+""+lname,email:email,phno:phno,password:password});
+    const response=await axios.post("/api/signin",{name:name+""+lname,email:email,phno:phno,password:password});
     router.push('/')
   };
   return (

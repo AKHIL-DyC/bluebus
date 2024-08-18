@@ -39,7 +39,7 @@ export default function SignupFormDemo() {
     }
     console.log("Form submitted");
     console.log(name,bname,email,phno);
-    const response=await axios.post("http://localhost:3000/api/signinbus",{name:name,email:email,phno:phno,password:password,bname:bname,reg:nplate,type:"normal"});
+    const response=await axios.post("/api/signinbus",{name:name,email:email,phno:phno,password:password,bname:bname,reg:nplate,type:"normal"});
     router.push('/')
   };
   return (
