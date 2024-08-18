@@ -25,9 +25,6 @@ export default async function Home() {
     <main className="flex h-100vh overflow-hidden flex-row items-center justify-between p-24 gap-9">
     
      <Alerter/>
-     <StartLocation/>
-     <EndLocation/>
-     <DatePicker/>
      <DrawerDemo/>
 
   
