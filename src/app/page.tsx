@@ -13,7 +13,8 @@ import { json } from "stream/consumers";
 import { Next_AUTH_CONFIG } from "./lib/auth";
 import Sidebar from "@/components/Sidebar";
 import { cookies } from "next/headers";
-
+import BusSeat from '@/components/BusSeat'
+import ShowBus from"@/components/BusSearch"
 export default async function Home() {
       const session =await getServerSession(Next_AUTH_CONFIG);
       
@@ -26,7 +27,8 @@ export default async function Home() {
     
      <Alerter/>
      <DrawerDemo/>
-
+     <ShowBus/>
+    <BusSeat/>
   
     </main>
 
