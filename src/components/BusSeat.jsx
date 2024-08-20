@@ -1,14 +1,38 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdChair } from "react-icons/md";
 import { GiSteeringWheel } from "react-icons/gi";
 
-const BusLayout = () => {
+const BusLayout = ({bus,rid,date}) => {
+  console.log(bus.bid)
   const rows = 8; // Number of rows in the bus
   const seatsPerRow = [2, 3]; // First two columns have 2 seats, next three columns have 3 seats
-
+  const [seatArr, setSeatArr] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]); // State to store selected seats
   console.log(selectedSeats)
+
+
+  useEffect(() => {
+    async function fetchSeats() {
+      if (bus && rid && date) {
+        try {
+          const res = await fetch(`/api/seat?bid=${bus.bid}&rid=${rid}&date=${date}`);
+          const data = await res.json();
+          setSeatArr(data.seats); // Assuming your API returns { seats: [] }
+        } catch (error) {
+          console.error("Error fetching seat data:", error);
+        }
+      }
+    }
+
+    fetchSeats();
+  }, [bus, rid, date]); // Re-run the effect when bus, rid, or date changes
+
+  // Now you can use seatArr in your component
+  console.log(seatArr);
+
+
+
   const handleClick = (seatNumber) => {
     if (selectedSeats.includes(seatNumber)) {
       // Deselect the seat if it's already selected
@@ -38,7 +62,7 @@ const BusLayout = () => {
               <MdChair
                 key={`seat-${seatNumber}`}
                 size={40}
-                style={{ marginRight: "1rem", color: selectedSeats.includes(seatNumber) ? "green" : "light-dark(black,white)" }} 
+                style={{ marginRight: "1rem", color: selectedSeats.includes(seatNumber) ? "green" : seatArr[seatNumber]?"red":"light-dark(black,white) "}} 
                 onClick={() => handleClick(seatNumber)}
               />
             );
