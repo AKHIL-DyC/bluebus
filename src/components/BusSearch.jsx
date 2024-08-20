@@ -1,9 +1,11 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import StartLocation from '@/components/StartLocation';
-import EndLocarion from '@/components/EndLocation';
+import EndLocation from '@/components/EndLocation' // Fixed typo in 'EndLocarion'
 import DatePickerDemo from '@/components/Datepicker';
 import { Button } from '@/components/ui/button';
+import { CardSpotlight } from "@/components/ui/card-spotlight";
+import BusLayout from './BusSeat';
 
 export default function SearchBus() {
   const [start, setStart] = useState('');
@@ -11,6 +13,7 @@ export default function SearchBus() {
   const [date, setDate] = useState(null);
   const [rid, setRid] = useState(0);
   const [data, setData] = useState([]);
+  const [activeBus, setActiveBus] = useState(null);
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -39,35 +42,62 @@ export default function SearchBus() {
       const arr = await response.json();
       const rdata = arr.data;
       setData(rdata);
-
     } catch (error) {
       console.error("Error fetching bus data:", error);
     }
   }
 
-  return (
-    <>
-      <ul>
-        {data.length > 0 ? (
-          data.map((bus, index) => (
-            <li key={index}>
-              <h2>Bus Name: {bus.owner.bname}</h2>
-              <h2>Arrival Time: {bus.arrivaltime}</h2>
-              <h2>Departure Time: {bus.deptrtime}</h2>
-              <h2>Remaining Seats: {bus.remaining}</h2>
-            </li>
-          ))
-        ) : (
-          <div>No bus data available</div>
-        )}
-      </ul>
+  const handleBusClick = (bus) => {
+    console.log("Selected Bus:", bus); // Add logging
+    setActiveBus(bus);
+  };
 
-      <div style={{ display: "flex", gap: "3vw", padding: "4vw" }}>
-        <StartLocation start={start} setstart={setStart} />
-        <EndLocarion end={end} setend={setEnd} />
-        <DatePickerDemo date={date} setdate={setDate} />
-        <Button variant={'outline'} onClick={handleClick}>Search</Button>
-      </div>
-    </>
+  return (
+    <div className='flex-row'>
+      {activeBus ? (
+        <div>
+          <BusLayout bus={activeBus} />
+        </div>
+      ) : (
+        <div>
+          <div style={{ display: "flex", gap: "3vw", padding: "4vw" }}>
+            <StartLocation start={start} setstart={setStart} />
+            <EndLocation end={end} setend={setEnd} /> {/* Fixed typo in 'EndLocarion' */}
+            <DatePickerDemo date={date} setdate={setDate} />
+            <Button variant={'outline'} onClick={handleClick}>Search</Button>
+          </div>
+          
+          <ul className="list-none p-0 m-0">
+            {data && data.length > 0 ? (
+              data.map((bus, index) => (
+                <li key={index} className="mb-4">
+                  <CardSpotlight className="flex flex-row p-4 justify-between border rounded-lg shadow-lg">
+                    <div className="flex flex-col mb-4">
+                      <h2 className="text-xl mb-1">Bus Detail:</h2>
+                      <p className="text-lg font-light mb-2 text-gray-700 dark:text-gray-300">{bus.owner.bname}</p>
+                      <p className="text-lg font-light text-gray-700 dark:text-gray-300">{bus.owner.regno}</p>
+                    </div>
+
+                    <div className="flex flex-col mb-4">
+                      <h2 className="text-xl mb-1">Arrival Time:</h2>
+                      <p className="text-lg font-light mb-2 text-gray-700 dark:text-gray-300">{bus.arrivaltime}</p>
+                      <h2 className="text-xl mb-1">Departure Time:</h2>
+                      <p className="text-lg font-light text-gray-700 dark:text-gray-300">{bus.deptrtime}</p>
+                    </div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 pt-5 z-40">Free Seats: {bus.remaining}</p>
+                  </CardSpotlight>
+                  <div className="flex flex-col items-center justify-between mb-4">
+    <Button variant="outline" onClick={() => handleBusClick(bus)}>Look Seats</Button>
+    
+  </div>
+                </li>
+              ))
+            ) : (
+              <div className="text-center text-gray-500 dark:text-gray-400">No bus data available</div>
+            )}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 }

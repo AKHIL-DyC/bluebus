@@ -20,7 +20,7 @@ const BusLayout = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", border: "1px solid white" }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", border: "2px solid light-dark(black,white)",borderRadius:'30px' }}>
       {/* Driver's seat */}
       <div style={{ display: "flex", alignItems: "right", marginBottom: "1rem" }}>
         <div style={{ marginLeft: "8rem" }}>
@@ -30,7 +30,7 @@ const BusLayout = () => {
 
       {/* Bus seats layout */}
       {[...Array(rows)].map((_, rowIndex) => (
-        <div key={rowIndex} style={{ display: "flex", marginBottom: "1rem" }}>
+        <div key={rowIndex} style={{ display: "flex", marginBottom: "1rem",marginLeft:'1.5rem'}}>
           {/* First 2 seats */}
           {[...Array(seatsPerRow[0])].map((_, seatIndex) => {
             const seatNumber = rowIndex * 5 + seatIndex + 1; // Calculate seat number
@@ -38,7 +38,7 @@ const BusLayout = () => {
               <MdChair
                 key={`seat-${seatNumber}`}
                 size={40}
-                style={{ marginRight: "1rem", color: selectedSeats.includes(seatNumber) ? "green" : "white" }} // Change color if selected
+                style={{ marginRight: "1rem", color: selectedSeats.includes(seatNumber) ? "green" : "light-dark(black,white)" }} 
                 onClick={() => handleClick(seatNumber)}
               />
             );
@@ -52,7 +52,7 @@ const BusLayout = () => {
               <MdChair
                 key={`seat-${seatNumber}`}
                 size={40}
-                style={{ marginRight: "1rem", color: selectedSeats.includes(seatNumber) ? "green" : "white" }} // Change color if selected
+                style={{ marginRight: "1rem", color: selectedSeats.includes(seatNumber) ? "green" : "light-dark(black,white)" }} // Change color if selected
                 onClick={() => handleClick(seatNumber)}
               />
             );
