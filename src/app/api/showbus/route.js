@@ -17,6 +17,7 @@ export async function GET(req) {
                     date: date
                 },
                 select: {
+                    id:true,
                     bid: true,
                     arrivaltime: true,
                     deptrtime: true,

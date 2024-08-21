@@ -4,16 +4,13 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
     const prisma = new PrismaClient();
     const { searchParams } = new URL(req.url);
-    const bid = searchParams.get('bid');
-    const rid = searchParams.get('rid');
-    const date = searchParams.get('date');
+    const id = searchParams.get('id');
+    
 
     try {
         const routeBus = await prisma.routebus.findFirst({
             where: {
-                bid:parseInt(bid),
-                rid:parseInt(rid),
-                date
+                id:parseInt(id),
             },
             select: {
                 s1: true, s2: true, s3: true, s4: true, s5: true, s6: true, s7: true, s8: true, s9: true, s10: true,

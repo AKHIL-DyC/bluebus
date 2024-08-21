@@ -57,11 +57,21 @@ const data = [
   },
 ]
 
-export function DrawerDemo() {
+export default function DrawerDemo({amount,id,seatArr,count,setcount}) {
   const [goal, setGoal] = React.useState(350)
 
-  function onClick(adjustment: number) {
-    setGoal(Math.max(200, Math.min(400, goal + adjustment)))
+  async function handlebuy() {
+    const res = await fetch('/api/markseat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id, 
+        seatno: seatArr 
+      })
+    });
+    setcount(count+1)
   }
 
   return (
@@ -77,34 +87,16 @@ export function DrawerDemo() {
           </DrawerHeader>
           <div className="p-4 pb-0">
             <div className="flex items-center justify-center space-x-2">
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 shrink-0 rounded-full"
-                onClick={() => onClick(-10)}
-                disabled={goal <= 200}
-              >
-                <Minus className="h-4 w-4" />
-                <span className="sr-only">Decrease</span>
-              </Button>
+            
               <div className="flex-1 text-center">
                 <div className="text-7xl font-bold tracking-tighter">
-                  {goal}
+                  {amount}
                 </div>
                 <div className="text-[0.70rem] uppercase text-muted-foreground">
                   Rupees
                 </div>
               </div>
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 shrink-0 rounded-full"
-                onClick={() => onClick(10)}
-                disabled={goal >= 400}
-              >
-                <Plus className="h-4 w-4" />
-                <span className="sr-only">Increase</span>
-              </Button>
+             
             </div>
             <div className="mt-3 h-[120px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -115,7 +107,7 @@ export function DrawerDemo() {
                       {
                         fill: "hsl(var(--foreground))",
                         opacity: 0.9,
-                      } as React.CSSProperties
+                      } 
                     }
                   />
                 </BarChart>
@@ -123,7 +115,7 @@ export function DrawerDemo() {
             </div>
           </div>
           <DrawerFooter>
-            <Button>Buy</Button>
+            <Button onClick={handlebuy}>Buy</Button>
             <DrawerClose asChild>
               <Button variant="outline">Cancel</Button>
             </DrawerClose>

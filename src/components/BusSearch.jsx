@@ -12,6 +12,8 @@ export default function SearchBus() {
   const [end, setEnd] = useState('');
   const [date, setDate] = useState(null);
   const [rid, setRid] = useState(0);
+  const[amount,setamount]=useState(0);
+  const[id,setId]=useState(0);
   const [data, setData] = useState([]);
   const [activeBus, setActiveBus] = useState(null);
 
@@ -22,6 +24,7 @@ export default function SearchBus() {
           const response = await fetch(`/api/rid?from=${start}&to=${end}`);
           const data = await response.json();
           setRid(data.rid);
+          setamount(data.amount)
         } catch (error) {
           console.error("Error fetching details:", error);
           setRid('Error fetching details');
@@ -56,7 +59,7 @@ export default function SearchBus() {
     <div className='flex-row'>
       {activeBus ? (
         <div>
-          <BusLayout bus={activeBus} rid={rid} date={date}/>
+          <BusLayout bus={activeBus} rid={rid} date={date} amount={amount}/>
         </div>
       ) : (
         <div>
