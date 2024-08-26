@@ -2,7 +2,8 @@
 import * as React from "react"
 import { Minus, Plus } from "lucide-react"
 import { Bar, BarChart, ResponsiveContainer } from "recharts"
-import { getSession } from "next-auth/react"
+import { getSession, useSession } from "next-auth/react"
+import {useRouter} from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import {
   Drawer,
@@ -58,10 +59,16 @@ const data = [
 ]
 
 export default function DrawerDemo({amount,id,seatArr,count,setcount}) {
-  const [goal, setGoal] = React.useState(350)
-  const session=getSession();
-  const uid=session.user.id;
-  console.log(ud);
+  
+  const [uid,setuid] = React.useState(null)
+    const router=useRouter();
+  async function sessiongetter(){
+    const session=await  getSession();
+    setuid(session.user.id);
+  }
+sessiongetter()
+
+console.log(uid);
   async function handlebuy() {
     const res = await fetch('/api/markseat', {
       method: 'POST',
@@ -70,10 +77,12 @@ export default function DrawerDemo({amount,id,seatArr,count,setcount}) {
       },
       body: JSON.stringify({
         id: id, 
-        seatno: seatArr 
+        seatno: seatArr ,
+        uid:uid
       })
     });
     setcount(count+1)
+    router.push('/orders')
   }
 
   return (

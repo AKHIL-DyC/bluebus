@@ -98,10 +98,8 @@ model Routebus {
 model Resevation {
   id           Int          @id @default(autoincrement())
   uid          Int
-  bid          Int
-  rid          Int
-  sid          Int
-  date         String
+  rbid         Int
+  setno        Int[]
   user         BlueBusUser  @relation(fields: [uid], references: [id], onDelete: Cascade)
-  routebus     Routebus     @relation(fields: [bid, rid, date], references: [bid, rid, date], onDelete: Cascade)
+  routebus     Routebus     @relation(fields: [rbid], references: [id], onDelete: Cascade)
 }

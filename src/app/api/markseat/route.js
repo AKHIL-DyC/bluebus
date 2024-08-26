@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 export async function POST(req) {
     const prisma = new PrismaClient();
-    const { id, seatno } = await req.json();
+    const { id, seatno,uid } = await req.json();
 
     if (!id || !seatno || !Array.isArray(seatno)) {
         return new Response(JSON.stringify({ error: "Missing or invalid required fields" }), { status: 400 });
@@ -22,7 +22,13 @@ export async function POST(req) {
             },
             data: updateData
         });
-
+        const updateReservation=await prisma.resevation.create({
+            data:{
+                uid:uid,
+                rbid:id,
+                setno:seatno
+            }
+        })
         return new Response(JSON.stringify({ success: true, data: updatedBus }), { status: 200 });
     } catch (error) {
         console.error("Error updating seats:", error);
