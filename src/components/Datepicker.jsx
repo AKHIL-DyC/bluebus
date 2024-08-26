@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { format } from "date-fns";
+import { format, isBefore, startOfDay } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -14,14 +14,22 @@ import {
 } from "@/components/ui/popover";
 
 export default function DatePickerDemo({ date, setdate }) {
+  // Get today's date to compare and disable past dates
+  const today = startOfDay(new Date()); // Start of today
+
   // Handle date selection and format it before setting the state
   const handleDateSelect = (selectedDate) => {
-    if (selectedDate) {
+    if (selectedDate && !isBefore(selectedDate, today)) {
       const formattedDate = format(selectedDate, "yyyy-MM-dd");
       setdate(formattedDate);
     } else {
       setdate(null);
     }
+  };
+
+  // Function to disable dates before today
+  const isDisabled = (day) => {
+    return isBefore(day, today); // Disable only dates before today
   };
 
   return (
@@ -44,6 +52,7 @@ export default function DatePickerDemo({ date, setdate }) {
           selected={date ? new Date(date) : undefined}
           onSelect={handleDateSelect}
           initialFocus
+          disabled={isDisabled}
         />
       </PopoverContent>
     </Popover>

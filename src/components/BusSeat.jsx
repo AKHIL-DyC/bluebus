@@ -16,7 +16,7 @@ import {
 import { POST } from "@/app/api/signin/route";
 
 
-const BusLayout = ({bus,rid,date,amount}) => {
+const BusLayout = ({bus,rid,date,amount,setActiveBus}) => {
   console.log(bus)
   const rows = 8; 
   const seatsPerRow = [2, 3]; 
@@ -50,7 +50,7 @@ const BusLayout = ({bus,rid,date,amount}) => {
   
   
   const handleClick = (seatNumber) => {
-    if(!seatArr[seatNumber]){
+    if(!seatArr[seatNumber-1]){
       if (selectedSeats.includes(seatNumber)) {
         // Deselect the seat if it's already selected
         setSelectedSeats(selectedSeats.filter((seat) => seat !== seatNumber));
@@ -149,12 +149,12 @@ const BusLayout = ({bus,rid,date,amount}) => {
         <div key={rowIndex} style={{ display: "flex", marginBottom: "1rem",marginLeft:'1.5rem'}}>
           {/* First 2 seats */}
           {[...Array(seatsPerRow[0])].map((_, seatIndex) => {
-            const seatNumber = rowIndex * 5 + seatIndex + 1; // Calculate seat number
+            const seatNumber = rowIndex * 5 + seatIndex +1; // Calculate seat number
             return (
               <MdChair
                 key={`seat-${seatNumber}`}
                 size={40}
-                style={{ marginRight: "1rem", color: selectedSeats.includes(seatNumber) ? "green" : seatArr[seatNumber]?"red":"light-dark(black,white) "}} 
+                style={{ marginRight: "1rem", color: selectedSeats.includes(seatNumber) ? "green" : seatArr[seatNumber-1]?"red":"light-dark(black,white) "}} 
                 onClick={() => handleClick(seatNumber)}
               />
             );
@@ -168,7 +168,7 @@ const BusLayout = ({bus,rid,date,amount}) => {
               <MdChair
                 key={`seat-${seatNumber}`}
                 size={40}
-                style={{ marginRight: "1rem", color: selectedSeats.includes(seatNumber) ? "green" : seatArr[seatNumber]?"red":"light-dark(black,white) "}} 
+                style={{ marginRight: "1rem", color: selectedSeats.includes(seatNumber) ? "green" : seatArr[seatNumber-1]?"red":"light-dark(black,white) "}} 
                 onClick={() => handleClick(seatNumber)}
               />
             );
@@ -177,7 +177,7 @@ const BusLayout = ({bus,rid,date,amount}) => {
       ))}
     </div>
     <div style={{display:'flex',position:'absolute',top:'60vh',left:'40vw'}}>
-    <BuyPop amount={amount} id={bus.id} seatArr={selectedSeats} count={count} setcount={setcount}/>
+    <BuyPop amount={amount} id={bus.id} seatArr={selectedSeats} count={count} setcount={setcount} />
     </div>
     </div>
     </div>

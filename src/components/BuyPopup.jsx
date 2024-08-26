@@ -2,7 +2,7 @@
 import * as React from "react"
 import { Minus, Plus } from "lucide-react"
 import { Bar, BarChart, ResponsiveContainer } from "recharts"
-
+import { getSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import {
   Drawer,
@@ -59,7 +59,9 @@ const data = [
 
 export default function DrawerDemo({amount,id,seatArr,count,setcount}) {
   const [goal, setGoal] = React.useState(350)
-
+  const session=getSession();
+  const uid=session.user.id;
+  console.log(ud);
   async function handlebuy() {
     const res = await fetch('/api/markseat', {
       method: 'POST',

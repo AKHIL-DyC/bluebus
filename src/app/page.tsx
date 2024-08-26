@@ -14,6 +14,7 @@ import Sidebar from "@/components/Sidebar";
 import { cookies } from "next/headers";
 import BusSeat from '@/components/BusSeat'
 import ShowBus from"@/components/BusSearch"
+import BlurIn from "@/components/magicui/blur-in";
 export default async function Home() {
       const session =await getServerSession(Next_AUTH_CONFIG);
       
@@ -22,8 +23,14 @@ export default async function Home() {
     <>
     <Sidebar/>
     <NavbarDemo/>
+
+   
+   
+   
     <main className="flex h-100vh overflow-hidden flex-row items-center justify-between p-24 gap-9">
-    
+
+
+
      <ShowBus/>
     
   

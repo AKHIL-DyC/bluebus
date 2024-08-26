@@ -18,19 +18,20 @@ const SidebarContent = () => {
     setwho(session?.user?.role)
   }, [session]);
 
-  return (
-    <div style={{ display: 'flex', position: 'fixed', top: '3vh', gap: '2vh', right: '4vw',height:"10vh"}}>
+  return (<div style={{display:'flex',flexDirection:'column',position:'fixed',top:'3vh',right:'4vw'}}>
+    <div style={{ display: 'flex', gap: '2vh', right: '4vw',height:"10vh"}}>
       <Toggler />
       <Avatar>
         <AvatarImage src="https://github.com/shadcn.png" />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
+      </div>
       <div style={{display:"flex",flexDirection:"column"}}>
-        <Button  variant={'outline'}  onClick={() => signIn()}>Signin</Button>
-        <Button  variant={'destructive'}   onClick={() => signOut()}>Sign out</Button>
+        {session? <Button  variant={'destructive'}   onClick={() => signOut()}>Sign out</Button>:<Button  variant={'outline'}  onClick={() => signIn()}>Signin</Button>}
         <h3 style={{color:"white"}}>{JSON.stringify(session?.user?.email)}</h3>
         {whos=='busowner'?<Button variant={'outline'} onClick={()=>{router.push('/dashboard')}}>Dashboard</Button>:<div></div>}
       </div>
+    
     </div>
   );
 };

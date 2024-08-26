@@ -59,7 +59,7 @@ export default function SearchBus() {
     <div className='flex-row'>
       {activeBus ? (
         <div>
-          <BusLayout bus={activeBus} rid={rid} date={date} amount={amount}/>
+          <BusLayout bus={activeBus} rid={rid} date={date} amount={amount} setActiveBus={setActiveBus}/>
         </div>
       ) : (
         <div>
