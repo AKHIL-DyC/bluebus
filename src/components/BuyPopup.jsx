@@ -64,7 +64,7 @@ export default function DrawerDemo({amount,id,seatArr,count,setcount}) {
     const router=useRouter();
   async function sessiongetter(){
     const session=await  getSession();
-    setuid(session.user.id);
+    setuid(session?.user?.id);
   }
 sessiongetter()
 

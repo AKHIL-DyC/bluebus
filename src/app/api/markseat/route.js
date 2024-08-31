@@ -4,7 +4,7 @@ export async function POST(req) {
     const prisma = new PrismaClient();
     const { id, seatno,uid } = await req.json();
 
-    if (!id || !seatno || !Array.isArray(seatno)) {
+    if (!id ||!uid|| !seatno || !Array.isArray(seatno)) {
         return new Response(JSON.stringify({ error: "Missing or invalid required fields" }), { status: 400 });
     }
 
