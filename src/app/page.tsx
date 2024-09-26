@@ -15,6 +15,7 @@ import { cookies } from "next/headers";
 import BusSeat from '@/components/BusSeat'
 import ShowBus from"@/components/BusSearch"
 import BlurIn from "@/components/magicui/blur-in";
+import BUsModel from "@/components/BusModel"
 export default async function Home() {
       const session =await getServerSession(Next_AUTH_CONFIG);
       
@@ -27,14 +28,16 @@ export default async function Home() {
    
    
    
-    <main className="flex h-100vh overflow-hidden flex-row items-center justify-between p-24 gap-9">
+   
 
-
-
+    <div>
+    <BUsModel/>
+    </div>
+  
      <ShowBus/>
     
   
-    </main>
+    
 
     </>
   );
