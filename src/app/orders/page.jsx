@@ -47,7 +47,7 @@ const Orders = () => {
       {/* Map through the reservations if they exist */}
       {data.reservations.length > 0 && data.reservations.map((r, index) => (
         <GlareCard>
-          <div className='text-center'><h2>TICKET</h2></div>
+          <div key={index}className='text-center'><h2>TICKET</h2></div>
         <div key={index}>Reservation {index + 1}: {JSON.stringify(r)}</div>
         </GlareCard>
       ))}
