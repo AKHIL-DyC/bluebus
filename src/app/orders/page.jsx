@@ -1,15 +1,16 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-
+import { GlareCard } from '@/components/ui/glare-card';
 const Orders = () => {
-  const [data, setData] = useState("");
+  // Initialize data with an empty reservations array
+  const [data, setData] = useState({ reservations: [] });
   const [error, setError] = useState(null); // For handling errors
 
   useEffect(() => {
     async function ofetcher() {
       try {
         const res = await fetch(`/api/orderfetcher?uid=1`);
-        
+
         // Check if the response is OK (status 200-299)
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -40,7 +41,16 @@ const Orders = () => {
   return (
     <div>
       <div>Orders</div>
-      <div>{data ? JSON.stringify(data) : "Loading..."}</div> {/* Show "Loading" while waiting */}
+      {/* Show "Loading" while waiting */}
+      <div>{data.reservations.length ? JSON.stringify(data) : "Loading..."}</div> 
+
+      {/* Map through the reservations if they exist */}
+      {data.reservations.length > 0 && data.reservations.map((r, index) => (
+        <GlareCard>
+          <div className='text-center'><h2>TICKET</h2></div>
+        <div key={index}>Reservation {index + 1}: {JSON.stringify(r)}</div>
+        </GlareCard>
+      ))}
     </div>
   );
 };

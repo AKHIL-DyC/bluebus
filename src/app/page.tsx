@@ -16,29 +16,23 @@ import BusSeat from '@/components/BusSeat'
 import ShowBus from"@/components/BusSearch"
 import BlurIn from "@/components/magicui/blur-in";
 import BUsModel from "@/components/BusModel"
+import HyperText from "@/components/ui/hyper-text";
 export default async function Home() {
       const session =await getServerSession(Next_AUTH_CONFIG);
       
   
   return (
-    <>
+    <div style={{height:'100vh',overflow:'hidden'}}>
     <Sidebar/>
     <NavbarDemo/>
-
-   
-   
-   
-   
-
-    <div>
+    <div style={{display:'flex',textAlign:'center'}}>
+      <HyperText className="text-7xl font-bold text-blue dark:text-blue pt-40"
+      text="blue bus"/>
     <BUsModel/>
     </div>
   
      <ShowBus/>
     
-  
-    
-
-    </>
+    </div>
   );
 }
