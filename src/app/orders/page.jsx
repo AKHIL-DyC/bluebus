@@ -1,56 +1,71 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { GlareCard } from '@/components/ui/glare-card';
+
 const Orders = () => {
-  // Initialize data with an empty reservations array
-  const [data, setData] = useState({ reservations: [] });
-  const [error, setError] = useState(null); // For handling errors
+  const [data, setData] = useState({ reservationDetails: [] });
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function ofetcher() {
       try {
         const res = await fetch(`/api/orderfetcher?uid=1`);
 
-        // Check if the response is OK (status 200-299)
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
 
-        // Check if the response has content before parsing
-        const text = await res.text(); // First, get the response as text
+        const text = await res.text();
         if (!text) {
           throw new Error("Empty response");
         }
 
-        // Try parsing the JSON only if the text is not empty
         const jres = JSON.parse(text);
         setData(jres);
       } catch (err) {
-        setError(err.message); // Set error message to state
+        setError(err.message);
         console.error('Fetching error:', err);
       }
     }
 
-    ofetcher(); // Call the async function inside useEffect
-  }, []); // Empty dependency array to run effect only once on component mount
+    ofetcher();
+  }, []);
 
   if (error) {
-    return <div>Error: {error}</div>; // Display error if something went wrong
+    return <div>Error: {error}</div>;
   }
 
   return (
     <div>
-      <div>Orders</div>
-      {/* Show "Loading" while waiting */}
-      <div>{data.reservations.length ? JSON.stringify(data) : "Loading..."}</div> 
-
-      {/* Map through the reservations if they exist */}
-      {data.reservations.length > 0 && data.reservations.map((r, index) => (
-        <GlareCard key={index}>
-          <div className='text-center'><h2>TICKET</h2></div>
-        <div key={index}>Reservation {index + 1}: {JSON.stringify(r)}</div>
-        </GlareCard>
-      ))}
+      <h1 className="text-center text-2xl font-bold mb-4">Your Reservations</h1>
+      {data.reservationDetails.length > 0 ? (
+        data.reservationDetails.map((reservation, index) => (
+          <GlareCard key={index} className="mb-4 p-4 ">
+            <div className="text-center font-bold text-xl pb-7">TICKET</div>
+            <div className="mt-2">
+              <strong>Route:</strong> {reservation.route.from} to {reservation.route.to}
+            </div>
+            <div className="mt-2">
+              <strong>Date:</strong> {new Date(reservation.routebus.date).toLocaleDateString()}
+            </div>
+            <div className="mt-2">
+              <strong>Bus Name:</strong> {reservation.busname.bname}
+             </div>
+            <div className="mt-2">
+              <strong>Seat No :</strong> {reservation.setno.join(', ')}
+            </div>
+            <div className="mt-2">
+              <strong>Distance:</strong> {reservation.route.distance}
+            </div>
+            <div className="mt-2">
+                   <strong>Contact:</strong> {reservation.busname.phone}
+                     </div>
+          
+          </GlareCard>
+        ))
+      ) : (
+        <div className="text-center">No Reservations</div>
+      )}
     </div>
   );
 };

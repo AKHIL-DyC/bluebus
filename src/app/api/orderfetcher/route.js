@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 const prisma = new PrismaClient(); // Instantiate PrismaClient only once
 
 export async function GET(req) {
-  const { searchParams } = new URL(req.url); // Fix typo and use 'url' property
+  const { searchParams } = new URL(req.url); // Use 'url' property
   const uid = searchParams.get('uid'); // Get the 'uid' from query params
 
   try {
@@ -19,7 +19,7 @@ export async function GET(req) {
       },
       select: {
         rbid: true,
-        setno:true
+        setno: true,
       },
     });
 
@@ -27,26 +27,52 @@ export async function GET(req) {
       return NextResponse.json({ msg: "No reservations found" });
     }
 
-    // Assuming you need to work with the first reservation's rbid
-    const rbid = reservations[0].rbid;
+    // For each reservation, find routebus and route data
+    const reservationDetails = await Promise.all(
+      reservations.map(async (reservation) => {
+        // Find routebus details based on 'rbid'
+        const routebus = await prisma.routebus.findFirst({
+          where: {
+            id: reservation.rbid,
+          },
+          select: {
+            bid: true,
+            rid: true,
+            date: true,
+          },
+        });
 
-    // Find routebus details based on 'rbid'
-    const data = await prisma.routebus.findFirst({
-      where: {
-        id: rbid,
-      },
-      select: {
-        bid: true,
-        rid: true,
-        date: true,
-      },
-    });
+        // Find route details based on 'rid'
+        const route = await prisma.blueBusRoute.findUnique({
+          where: {
+            rid: routebus.rid,
+          },
+          select: {
+            from: true,
+            to: true,
+            distance: true,
+          },
+        });
 
-    if (!data) {
-      return NextResponse.json({ msg: "No routebus data found" });
-    }
+        const busname=await prisma.blueBusOwner.findUnique({
+          where:{
+            bid:routebus.bid
+          },
+          select:{
+            bname:true,
+            phone:true
+          }
+        })
+        return {
+          ...reservation,
+          routebus,
+          route,
+          busname
+        };
+      })
+    );
 
-    return NextResponse.json({ data , reservations});
+    return NextResponse.json({ reservationDetails });
   } catch (error) {
     console.error('Database error:', error);
     return NextResponse.json({ msg: "Some DB error" });
