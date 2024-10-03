@@ -6,7 +6,7 @@ import DatePickerDemo from '@/components/Datepicker';
 import { Button } from '@/components/ui/button';
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import BusLayout from './BusSeat';
-
+import BUsModel from "@/components/BusModel"
 export default function SearchBus() {
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
@@ -63,6 +63,7 @@ export default function SearchBus() {
         </div>
       ) : (
         <div>
+           <BUsModel/>
           <div style={{ display: "flex", gap: "3vw", padding: "4vw" }}>
             <StartLocation start={start} setstart={setStart} />
             <EndLocation end={end} setend={setEnd} /> {/* Fixed typo in 'EndLocarion' */}
@@ -74,7 +75,7 @@ export default function SearchBus() {
             {data && data.length > 0 ? (
               data.map((bus, index) => (
                 <li key={index} className="mb-4">
-                  <CardSpotlight className="flex flex-row p-4 justify-between border rounded-lg shadow-lg">
+                  <CardSpotlight className="flex flex-row p-4 justify-between border rounded-lg shadow-lg " style={{width:"30vw"}}>
                     <div className="flex flex-col mb-4">
                       <h2 className="text-xl mb-1">Bus Detail:</h2>
                       <p className="text-lg font-light mb-2 text-gray-700 dark:text-gray-300">{bus.owner.bname}</p>
@@ -89,7 +90,7 @@ export default function SearchBus() {
                     </div>
                     <p className="text-sm text-gray-500 dark:text-gray-400 pt-5 z-40">Free Seats: {bus.remaining}</p>
                   </CardSpotlight>
-                  <div className="flex flex-col items-center justify-between mb-4">
+                  <div className="flex flex-col justify-between mb-4 " style={{width:'10vh'}}>
     <Button variant="outline" onClick={() => handleBusClick(bus)}>Look Seats</Button>
     
   </div>

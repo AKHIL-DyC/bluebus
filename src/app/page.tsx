@@ -22,13 +22,13 @@ export default async function Home() {
       
   
   return (
-    <div style={{height:'100vh',overflow:'hidden'}}>
+    <div style={{minHeight:'100vh',overflow:'hidden'}}>
     <Sidebar/>
     <NavbarDemo/>
     <div style={{display:'flex',textAlign:'center'}}>
       <HyperText className="text-7xl font-bold text-blue dark:text-blue pt-40"
       text="blue bus"/>
-    <BUsModel/>
+   
     </div>
   
      <ShowBus/>

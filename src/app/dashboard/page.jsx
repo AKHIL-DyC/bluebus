@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import TimePicker from'@/components/Timepicker'
 import { getSession } from 'next-auth/react';
-
+import { GlareCard } from '@/components/ui/glare-card';
 async function getBid(){
   const session = await getSession(); 
   if (session && session.user) {
@@ -102,20 +102,22 @@ const Page = () => {
     <>
       <h3>{start + " to " + end + " on " + date+ " arrival " + time + " bid " + bid}</h3>
       
-      <ul>
-        {data.length > 0 ? (
+      <div className='flex gap-5 p-6 justify-between'>
+        {data?.length > 0 ? (
           data.map((id) => (
-            <li key={id.rid}>
-              <h2>Date: {id.date}</h2>
-              <h2>Arrival Time: {id.arrivaltime}</h2>
-              <h2>Departure Time: {id.deptrtime}</h2>
-              <h2>Remaining Seats: {id.remaining}</h2>
-            </li>
+            <GlareCard key={id.rid}>
+              <div className=' justify-center'>
+              <h2 className='text-center'>Date: {id.date}</h2>
+              <h2 className='text-center'>Arrival Time: {id.arrivaltime}</h2>
+              <h2 className='text-center'>Departure Time: {id.deptrtime}</h2>
+              <h2 className='text-center'>Remaining Seats: {id.remaining}</h2>
+              </div>
+            </GlareCard>
           ))
         ) : (
           <div>No bus data available</div>
         )}
-      </ul>
+      </div>
 
       {console.log(data)}
       <div style={{ display: "flex", gap: "3vw", padding: "4vw" }}>
