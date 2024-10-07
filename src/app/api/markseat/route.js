@@ -10,6 +10,7 @@ export async function POST(req) {
 
     try {
         // Build an object that will hold the seat fields to update
+        const nseat=seatno.length
         const updateData = seatno.reduce((acc, seat) => {
             const seatField = `s${seat}`;
             acc[seatField] = true; // Set the selected seat to true
@@ -22,6 +23,16 @@ export async function POST(req) {
             },
             data: updateData
         });
+        const reduceRemainingSeat=await prisma.routebus.update({
+            where:{
+                id:id
+            },
+            data:{remaining:{
+                decrement:
+                    nseat
+                
+            }}
+        })
         const updateReservation=await prisma.resevation.create({
             data:{
                 uid:uid,
