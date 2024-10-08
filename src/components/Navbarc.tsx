@@ -26,7 +26,7 @@ function Navbar({ className }: { className?: string }) {
             <HoveredLink href="https://github.com/AKHIL-DyC">github</HoveredLink>
           </div>
         </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Products">
+        <MenuItem setActive={setActive} active={active} item="Menu">
           <div className="  text-sm grid grid-cols-2 gap-10 p-4">
             <ProductItem
               title="Book Bus"
@@ -54,11 +54,11 @@ function Navbar({ className }: { className?: string }) {
             />
           </div>
         </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Pricing">
+        <MenuItem setActive={setActive} active={active} item="Signup">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/signup">Looking for Bus?</HoveredLink>
             <HoveredLink href="/signupbus">Own A Bus?</HoveredLink>
-            <HoveredLink href="https://github.com/AKHIL-DyC">Owner</HoveredLink>
+           
           </div>
         </MenuItem>
         
