@@ -20,37 +20,37 @@ function Navbar({ className }: { className?: string }) {
       <Menu setActive={setActive}>
         <MenuItem setActive={setActive} active={active} item="Services">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/web-dev">Web Development</HoveredLink>
-            <HoveredLink href="/interface-design">Interface Design</HoveredLink>
-            <HoveredLink href="/seo">Search Engine Optimization</HoveredLink>
-            <HoveredLink href="/branding">Branding</HoveredLink>
+            <HoveredLink href="/">Book tickets</HoveredLink>
+            <HoveredLink href="/orders">Order</HoveredLink>
+            <HoveredLink href="/dashboard">Dashboard</HoveredLink>
+            <HoveredLink href="https://github.com/AKHIL-DyC">github</HoveredLink>
           </div>
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Products">
           <div className="  text-sm grid grid-cols-2 gap-10 p-4">
             <ProductItem
               title="Book Bus"
-              href="https://algochurn.com"
+              href="/"
               src="/bus1.jpg"
-              description="Prepare for tech interviews like never before."
+              description="Book bus ticket for the best price"
             />
             <ProductItem
               title="Own a Bus"
-              href="https://tailwindmasterkit.com"
+              href="/signupbus"
               src="/bus2.avif"
-              description="Production ready Tailwind css components for your next project"
+              description="Join the blue bus to list your bus"
             />
             <ProductItem
               title="Orders"
-              href="https://gomoonbeam.com"
+              href="/orders"
               src="/busticket2.jpg"
-              description="Never write from scratch again. Go from idea to blog in minutes."
+              description="Your order page"
             />
             <ProductItem
               title="Tickets"
-              href="https://userogue.com"
+              href="/orders"
               src="/busticket.avif"
-              description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
+              description="See all your tickets"
             />
           </div>
         </MenuItem>
@@ -58,8 +58,7 @@ function Navbar({ className }: { className?: string }) {
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/signup">Looking for Bus?</HoveredLink>
             <HoveredLink href="/signupbus">Own A Bus?</HoveredLink>
-            <HoveredLink href="/team">Team</HoveredLink>
-            <HoveredLink href="/enterprise">Enterprise</HoveredLink>
+            <HoveredLink href="https://github.com/AKHIL-DyC">Owner</HoveredLink>
           </div>
         </MenuItem>
         
