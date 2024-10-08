@@ -22,6 +22,7 @@ const Page = () => {
   const [date, setDate] = useState(null);
   const [rid, setRid] = useState(0);
   const [time, setTime] = useState('');
+  const[dtime,setdtime]=useState('');
   const [bid, setBid] = useState('');
   const [data, setData] = useState([]);
   const[count,setcount]=useState(0);
@@ -67,7 +68,7 @@ const Page = () => {
 
   async function handleClick() {
     try {
-      if (!bid || !rid || !date || !time) {
+      if (!bid || !rid || !date || !time||!dtime) {
         console.error('Missing required data to proceed');
         return;
       }
@@ -82,7 +83,7 @@ const Page = () => {
           rid: rid, 
           date: date, 
           arrivaltime: time, 
-          deptrtime: "6:08 PM"
+          deptrtime:dtime
         }),
       });
 
@@ -98,19 +99,20 @@ const Page = () => {
     }
   }
 
+
+
+
   return (
-    <>
-      <h3>{start + " to " + end + " on " + date+ " arrival " + time + " bid " + bid}</h3>
-      
-      <div className='flex gap-5 p-6 justify-between'>
+    <div style={{ display:'flex',flexWrap:'wrap'}}>
+      <div style={{display:'flex',flexWrap:'wrap'}}>
         {data?.length > 0 ? (
           data.map((id) => (
-            <GlareCard key={id.rid}>
-              <div className=' justify-center'>
-              <h2 className='text-center'>Date: {id.date}</h2>
-              <h2 className='text-center'>Arrival Time: {id.arrivaltime}</h2>
-              <h2 className='text-center'>Departure Time: {id.deptrtime}</h2>
-              <h2 className='text-center'>Remaining Seats: {id.remaining}</h2>
+            <GlareCard key={id.rid} style={{ width: '10vw' }}>
+              <div className='justify-center'style={{width:'20vw',height:'5vh',justifyContent:'center',alignItems:'center',alignContent:'center',textAlign:'center',padding:'3vw'}}>
+                <h2 className='text-center'>Date: {id.date}</h2>
+                <h2 className='text-center'>Arrival Time: {id.arrivaltime}</h2>
+                <h2 className='text-center'>Departure Time: {id.deptrtime}</h2>
+                <h2 className='text-center'>Remaining Seats: {id.remaining}</h2>
               </div>
             </GlareCard>
           ))
@@ -118,17 +120,24 @@ const Page = () => {
           <div>No bus data available</div>
         )}
       </div>
-
+  
       {console.log(data)}
-      <div style={{ display: "flex", gap: "3vw", padding: "4vw" }}>
+      
+      <h3 style={{ paddingLeft: '20vw' }}>
+        {`${start} to ${end} on ${date} arrival ${time} departure ${dtime} bid ${bid}`}
+      </h3>
+  
+      <div style={{ display: 'flex', gap: '3vw', padding: '4vw', paddingLeft: '10vw' }}>
         <StartLocation start={start} setstart={setStart} />
         <EndLocarion end={end} setend={setEnd} />
         <DatePickerDemo date={date} setdate={setDate} />
         <TimePicker time={time} setTime={setTime} />
-        <Button variant={'outline'} onClick={handleClick}>Confirm</Button>
+        <TimePicker time={dtime} setTime={setdtime} />
+        <Button variant="outline" onClick={handleClick}>Confirm</Button>
       </div>
-    </>
+    </div>
   );
+  
 };
 
 export default Page;
